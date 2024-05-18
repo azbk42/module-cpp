@@ -6,13 +6,13 @@
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 16:13:53 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/13 18:52:33 by emauduit         ###   ########.fr       */
+/*   Updated: 2024/05/18 17:51:29 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.hpp"
 
-int parsing_arg(PhoneBook *book)
+int parsing_arg(PhoneBook *directory)
 {
     Contact contact;
     std::string input;
@@ -25,21 +25,20 @@ int parsing_arg(PhoneBook *book)
 
     if (!std::getline(std::cin, input)) {
         if (std::cin.eof()) {
-            std::cout << "End of file encountered." << std::endl;
-            return ERROR;  // Use appropriate constants to handle EOF.
+            std::cout << std::endl << "End of file encountered." << std::endl;
+            std::cout << "program close!" << std::endl;
+            return ERROR;
         }
         std::cout << "Input error!" << std::endl;
-        return ERROR;  // Different error handling may be applied here.
+        return ERROR;
     }
     
     if (input == "ADD"){
-        std::cout << "you type: " << input << std::endl;
-        book->addContact(contact);
+        if (directory->addContact(contact) == ERROR)
+            return (ERROR);
     } else if (input == "SEARCH"){
-        std::cout << "you type: " << input << std::endl;
-        book->showContact();
+        directory->showContact();
     } else if (input == "EXIT") {
-       std::cout << "you type: " << input << std::endl;
         return (ERROR);
     }
     else {
@@ -58,9 +57,9 @@ int main(int ac, char **av)
         std::cout << "no arg needed" << std::endl;
         return (1);
     }
-    PhoneBook book;
+    PhoneBook directory;
     while (true){
-       if (parsing_arg(&book) == ERROR)
+       if (parsing_arg(&directory) == ERROR)
             break;
     }
     
