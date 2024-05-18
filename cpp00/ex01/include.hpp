@@ -6,7 +6,7 @@
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:09:43 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/13 12:10:43 by emauduit         ###   ########.fr       */
+/*   Updated: 2024/05/18 18:07:50 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,5 @@
 
 #define ERROR -1
 #define SUCCES 1
-
 
 #endif

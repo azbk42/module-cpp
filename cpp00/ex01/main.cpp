@@ -6,7 +6,7 @@
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 16:13:53 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/18 17:51:29 by emauduit         ###   ########.fr       */
+/*   Updated: 2024/05/18 18:08:56 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int parsing_arg(PhoneBook *directory)
     std::cout << "-\tSEARCH" << std::endl;
     std::cout << "-\tEXIT" << std::endl;
     
-
     if (!std::getline(std::cin, input)) {
         if (std::cin.eof()) {
             std::cout << std::endl << "End of file encountered." << std::endl;
@@ -48,7 +47,6 @@ int parsing_arg(PhoneBook *directory)
     return (SUCCES);
 }
 
-
 int main(int ac, char **av)
 {
     (void)av;
@@ -57,13 +55,12 @@ int main(int ac, char **av)
         std::cout << "no arg needed" << std::endl;
         return (1);
     }
+    
     PhoneBook directory;
     while (true){
        if (parsing_arg(&directory) == ERROR)
             break;
     }
     
-
-
     return (0);
 }

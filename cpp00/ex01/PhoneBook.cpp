@@ -6,7 +6,7 @@
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 16:19:01 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/18 18:02:47 by emauduit         ###   ########.fr       */
+/*   Updated: 2024/05/18 18:09:35 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,24 +152,24 @@ void PhoneBook::showContact()
 
 int PhoneBook::addContact(Contact &person)
 {
-
     if ( _askQuestion(person) == ERROR)
         return (ERROR);
+    
     _contact[_index] = person;
     _index = (_index + 1 ) % 8;
     _nb_contact += 1;
+    
     if (this->_nb_contact > 7)
         this->_nb_contact = 8;
+        
     return (SUCCES);
     
 }
 
 PhoneBook::PhoneBook(void) : _index(0), _nb_contact(0){
-    
-    
+
 }
 
 PhoneBook::~PhoneBook(void){
-
-
+    
 }

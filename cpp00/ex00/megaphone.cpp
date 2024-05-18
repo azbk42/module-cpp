@@ -6,7 +6,7 @@
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:38:04 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/11 15:57:50 by emauduit         ###   ########.fr       */
+/*   Updated: 2024/05/18 18:10:33 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ int main(int ac, char **av)
             for (size_t j = 0; j < str.length(); j++){
                 str[j] = std::toupper((unsigned char)str[j]);
             }
-            
+
             std::cout << str;
-            
         }
        std::cout << std::endl;
     } else {
