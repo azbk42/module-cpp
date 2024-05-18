@@ -6,7 +6,7 @@
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 16:19:01 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/18 17:54:40 by emauduit         ###   ########.fr       */
+/*   Updated: 2024/05/18 18:02:47 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void PhoneBook::showContact()
     while (nb == -1)
     {
         std::string s;
-        std::cout << "Enter a number beetween 0 include and 7 include: ";
+        std::cout << "Please enter the index of the contact, between 0 and 7 inclusive: ";
         if (!std::getline(std::cin, s)){
             if (std::cin.eof())
                 return ;   
