@@ -6,7 +6,7 @@
 #    By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/11 15:52:16 by emauduit          #+#    #+#              #
-#    Updated: 2024/05/20 11:32:38 by emauduit         ###   ########.fr        #
+#    Updated: 2024/05/20 16:32:53 by emauduit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 #                                COMPILATION                                   #
 ################################################################################
 
-NAME = ZombieREF
+NAME = replace
 CC			= c++
 CFLAGS		= -g3 -std=c++98 -Wall -Wextra -Werror
 MAKEFLAGS += --no-print-directory
