@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/24 14:06:14 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/24 15:44:55 by emauduit         ###   ########.fr       */
+/*   Created: 2024/05/20 17:21:17 by emauduit          #+#    #+#             */
+/*   Updated: 2024/05/24 15:42:47 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,41 @@ const Harl::hashTable Harl::tab[4] = {
     {"ERROR", &Harl::_error},
 };
 
-void Harl::complain( std::string level )
+int Harl::getIndex( std::string level )
 {
     for (int i = 0; i < 4; i++){
         if (tab[i].level == level){
-            (this->*(tab[i].function))();
-            return ;
+            return (i);
         }
-    }    
-    std::cerr << "Invalid complaint level: " << level << std::endl;
+    }
+    return (-1);    
+}
+
+void Harl::complain(std::string level) 
+{
+    int index = getIndex(level);
+
+    switch (index) {
+        case 0:
+            std::cout << "[ " << tab[0].level << " ]" << std::endl;
+            (this->*(tab[0].function))();
+            std::cout << std::endl;
+        case 1:
+            std::cout << "[ " << tab[1].level << " ]" << std::endl;
+            (this->*(tab[1].function))();
+            std::cout << std::endl;
+        case 2:
+            std::cout << "[ " << tab[2].level << " ]" << std::endl;
+            (this->*(tab[2].function))();
+            std::cout << std::endl;
+        case 3:
+            std::cout << "[ " << tab[3].level << " ]" << std::endl;
+            (this->*(tab[3].function))();
+            break;
+        default:
+            std::cerr << "[ Probably complaining about insignificant problems ]" << std::endl;
+            break;
+    }
 }
 
 void Harl::_debug(void)

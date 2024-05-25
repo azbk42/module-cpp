@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/24 14:06:30 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/24 15:17:38 by emauduit         ###   ########.fr       */
+/*   Created: 2024/05/20 17:20:11 by emauduit          #+#    #+#             */
+/*   Updated: 2024/05/24 15:42:55 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 #ifndef HARL_HPP
 #define HARL_HPP
 #include <iostream>
-
-#define GREEN "\033[32m"
-#define RESET "\033[0m"
 
 class Harl
 {
@@ -26,10 +23,11 @@ class Harl
         Harl();
         ~Harl();
 
-        void complain( std::string level );
+        void complain(std::string level);
 
     private:
 
+        int getIndex(std::string level);
         void _debug(void);
         void _info(void);
         void _warning(void);
@@ -42,6 +40,5 @@ class Harl
     static const hashTable tab[4];    
 
 };
-
 
 #endif // HARL_HPP

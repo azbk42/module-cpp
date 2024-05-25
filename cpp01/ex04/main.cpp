@@ -6,13 +6,12 @@
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 16:06:54 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/20 17:15:47 by emauduit         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:52:20 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <fstream>
-
 
 void replace_occurrences(std::ifstream &inputFile, std::ofstream &outputFile, \
                         const std::string s1, const std::string s2)
@@ -25,7 +24,6 @@ void replace_occurrences(std::ifstream &inputFile, std::ofstream &outputFile, \
             line.erase(pos, s1.length());
             line.insert(pos, s2);
             pos += s2.length();
-            
         }
         outputFile << line << std::endl;
     }

@@ -6,7 +6,7 @@
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:35:37 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/20 15:51:28 by emauduit         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:48:16 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "HumanB.hpp"
 
 
-int main()
+int main(void)
 {
     {
     Weapon club = Weapon("crude spiked club");

@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   HumanA.hpp                                         :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/20 11:35:34 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/24 15:48:03 by emauduit         ###   ########.fr       */
+/*   Created: 2024/05/20 17:48:28 by emauduit          #+#    #+#             */
+/*   Updated: 2024/05/24 15:45:50 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#ifndef HUMANA_HPP
-#define HUMANA_HPP
+#include "Harl.hpp"
 
-
-#include <iostream>
-#include "Weapon.hpp"
-
-class HumanA
+int main(int ac, char **av) 
 {
-    public:
-        HumanA(const std::string name, Weapon& weapon);
-        ~HumanA();
+    if (ac != 2){
+        std::cout << "only one arg accepted ./HarlFilter [complain]" << std::endl;
+        return (1);
+    }
+    Harl harl;
 
-        void attack() const;
+    harl.complain(av[1]);
 
-    private:
-
-        Weapon& _weapon;
-        const std::string _name;
-
-};
-
-#endif // HUMANA_HPP
-
+    return (0);
+}

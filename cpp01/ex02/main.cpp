@@ -6,13 +6,13 @@
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:06:47 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/19 15:43:29 by emauduit         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:48:24 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 
-int main()
+int main(void)
 {
     std::string brain = "HI THIS IS BRAIN";
     std::string *stringPTR = &brain;

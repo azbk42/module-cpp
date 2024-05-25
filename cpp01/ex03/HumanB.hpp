@@ -6,7 +6,7 @@
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:44:54 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/20 16:00:20 by emauduit         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:00:12 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ class HumanB
 
     public:
         HumanB(std::string name);
-        HumanB();
         ~HumanB();
     
         void attack() const;

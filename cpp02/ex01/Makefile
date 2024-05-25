@@ -6,7 +6,7 @@
 #    By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/11 15:52:16 by emauduit          #+#    #+#              #
-#    Updated: 2024/05/20 18:00:29 by emauduit         ###   ########.fr        #
+#    Updated: 2024/05/25 14:43:56 by emauduit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 #                                COMPILATION                                   #
 ################################################################################
 
-NAME = Harl
+NAME = canon
 CC			= c++
 CFLAGS		= -g3 -std=c++98 -Wall -Wextra -Werror
 MAKEFLAGS += --no-print-directory
@@ -25,7 +25,7 @@ MAKEFLAGS += --no-print-directory
 SRC_DIR = ./
 
 SRC = main.cpp \
-	Harl.cpp
+	Fixed.cpp
 
 ################################################################################
 #                                  OBJECTS / DEP                                #
