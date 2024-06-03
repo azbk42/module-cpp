@@ -6,7 +6,7 @@
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:46:05 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/24 14:00:01 by emauduit         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:51:05 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void HumanB::attack() const
 {
     if (_weapon) {
         std::cout << _name << " attacks with their " << _weapon->getType() << std::endl;
-    } else {
+    } 
+    else {
         std::cout << _name << " has no weapon to attack with!" << std::endl;
     }
 }

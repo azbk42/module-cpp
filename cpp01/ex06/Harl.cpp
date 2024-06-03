@@ -6,7 +6,7 @@
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 17:21:17 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/24 15:42:47 by emauduit         ###   ########.fr       */
+/*   Updated: 2024/05/29 18:09:53 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ const Harl::hashTable Harl::tab[4] = {
     {"INFO", &Harl::_info},
     {"WARNING", &Harl::_warning},
     {"ERROR", &Harl::_error},
+    
 };
 
 int Harl::getIndex( std::string level )

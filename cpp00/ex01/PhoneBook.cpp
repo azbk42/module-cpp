@@ -6,16 +6,18 @@
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 16:19:01 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/18 18:09:35 by emauduit         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:54:53 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
+#include <string>
 #include "PhoneBook.hpp"
 #include "include.hpp"
 
+// Private:
 int PhoneBook::_qPhoneNumber(Contact &person)
 {
     while (true)
@@ -56,7 +58,7 @@ int PhoneBook::_question(std::string &arg, std::string sentence)
         if (!std::getline(std::cin, arg)){
             if (std::cin.eof()) {
             std::cout << std::endl << "End of file encountered." << std::endl;
-            std::cout << "program close!" << std::endl;
+            std::cout << "Program close!" << std::endl;
             return (ERROR);
             }
             std::cout << "Input error!" << std::endl;
@@ -85,7 +87,8 @@ int PhoneBook::_askQuestion(Contact &person)
     return SUCCES;
 }
 
-std::string formatName(std::string &name){
+std::string PhoneBook::_formatName(std::string &name)
+{
      if (name.length() > 10) {
             return name.substr(0, 9) + ".";
         }
@@ -105,9 +108,9 @@ void PhoneBook::_generateAllContacts()
 
     for (int i = 0; i < this->_nb_contact; i++) {
     std::cout << "|" << std::setw(10) << i << "|"
-                << std::setw(10) << formatName(this->_contact[i].firstname) << "|"
-                << std::setw(10) << formatName(this->_contact[i].lastname) << "|"
-                << std::setw(10) << formatName(this->_contact[i].nickname) << "|\n";
+                << std::setw(10) << _formatName(this->_contact[i].firstname) << "|"
+                << std::setw(10) << _formatName(this->_contact[i].lastname) << "|"
+                << std::setw(10) << _formatName(this->_contact[i].nickname) << "|\n";
     }
      
     std::cout << " -";
@@ -117,6 +120,7 @@ void PhoneBook::_generateAllContacts()
     std::cout << std::endl;
 }
 
+// Public:
 void PhoneBook::showContact()
 {
     this->_generateAllContacts();
@@ -159,13 +163,12 @@ int PhoneBook::addContact(Contact &person)
     _index = (_index + 1 ) % 8;
     _nb_contact += 1;
     
-    if (this->_nb_contact > 7)
-        this->_nb_contact = 8;
+    if (_nb_contact > 7)
+        _nb_contact = 8;
         
     return (SUCCES);
-    
 }
-
+// Constructor - Destructor
 PhoneBook::PhoneBook(void) : _index(0), _nb_contact(0){
 
 }

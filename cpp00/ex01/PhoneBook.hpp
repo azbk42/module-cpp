@@ -6,7 +6,7 @@
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 16:18:51 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/18 17:33:01 by emauduit         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:38:36 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,28 @@
 
 #include "Contact.hpp"
 
-class PhoneBook{
+class PhoneBook
+{
     
-public:
+    public:
 
-    PhoneBook(void);
-    ~PhoneBook(void);
+        PhoneBook(void);
+        ~PhoneBook(void);
 
-    int addContact(Contact &contact);
-    void showContact();
+        int addContact(Contact &contact);
+        void showContact();
 
-private:
+    private:
 
-    void _generateAllContacts(void);
-    int _askQuestion(Contact &person);
-    
-    int _question(std::string &arg, std::string sentence);
-    int _qPhoneNumber(Contact &person);
-
-    Contact _contact[8];
-    int _index;
-    int _nb_contact;
+        void _generateAllContacts(void);
+        int _askQuestion(Contact &person);
+        std::string _formatName(std::string &name);
+        int _question(std::string &arg, std::string sentence);
+        int _qPhoneNumber(Contact &person);
+        
+        Contact _contact[8];
+        int _index;
+        int _nb_contact;
 };
 
 

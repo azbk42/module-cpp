@@ -6,7 +6,7 @@
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:25:09 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/19 14:37:13 by emauduit         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:36:50 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@
 
 class Zombie
 {
-public:
+    public:
 
-    void announce(void);
+        void announce(void);
 
-    Zombie();
-    Zombie(std::string name);
-    ~Zombie(void);
+        Zombie();
+        Zombie(std::string name);
+        ~Zombie(void);
 
-private:
+    private:
 
-    std::string _name;
+        std::string _name;
 
 };
 
