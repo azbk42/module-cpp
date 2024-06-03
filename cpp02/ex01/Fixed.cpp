@@ -6,7 +6,7 @@
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:58:30 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/25 18:53:08 by emauduit         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:51:39 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,79 +14,56 @@
 #include <cmath>
 #include <iostream>
 
-// constante:
 const int Fixed::_nbBits = 8;
-const float Fixed::_scale = 1 << Fixed::_nbBits;
+const int Fixed::_scale = (1 << _nbBits);
 
-// Public Method:
+int Fixed::getRawBits(void) const
+{
+    return (this->_value);
+}
+
+void Fixed::setRawBits(int const raw)
+{
+    this->_value = raw;    
+}
+
+float Fixed::toFloat( void ) const
+{
+    float convert = static_cast<float>(_value);
+    
+    return (convert / _scale);
+}
+
 int Fixed::toInt(void) const
 {
     return (_value >> _nbBits);
 }
 
-float Fixed::toFloat(void) const
-{
-    float value_to_float;
+// overload operator
 
-    value_to_float = (_value / _scale);
-    return (value_to_float);
-} 
-
-int Fixed::getRawBits(void) const
+std::ostream & operator << (std::ostream & o, Fixed const & rhs)
 {
-    std::cout << "getRawBits member function called" << std::endl;
-    return (_value);
+    o << rhs.toFloat();
+    return o;
 }
 
-void Fixed::setRawBits(int const raw)
+Fixed & Fixed::operator = (const Fixed & rhs)
 {
-    _value = raw;
-    std::cout << raw << std::endl;
-}
-
-// surcharge operator:
-Fixed& Fixed::operator << (const Fixed& other)
-{
-    
-}
-
-Fixed& Fixed::operator=(const Fixed& other) 
-{
-    if (this != &other) {
-        _value = other._value;
+    if (this != &rhs){
+        this->_value = rhs.getRawBits();
     }
-    std::cout << "Copy assignment operator called" << std::endl;
-    return *this;
+    return (*this);
 }
 
-// Constructor 
-
-Fixed::Fixed(const float number)
+// constructor
+Fixed::Fixed(const int value)
 {
-    int integer_number = static_cast<int>(number);
-    float float_number = number - integer_number;
-    
-    _value = (integer_number << _nbBits) + static_cast<int>(roundf((float_number * _scale)));
-    std::cout << "Float constructor called" << std::endl;
+    _value = value << _nbBits;
 }
-
-Fixed::Fixed(const int number)
+Fixed::Fixed(const float value)
 {
-    _value = number << _nbBits;
-    std::cout << "Int constructor called" << std::endl;
+    _value = roundf(value * _scale);
 }
-
-Fixed::Fixed(const Fixed& other): _value(other._value)
-{
-    std::cout << "Copy constructor called" << std::endl;
-}
-
-Fixed::Fixed(): _value(0)
-{
-    std::cout << "Default constructor called" << std::endl;
-}
-
-Fixed::~Fixed()
-{
-    std::cout << "Destructor called" << std::endl;
-}
+Fixed::Fixed(const Fixed& rhs): _value(rhs._value) {};
+Fixed::Fixed(): _value(0) {};
+Fixed::~Fixed() {};

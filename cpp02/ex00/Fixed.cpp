@@ -6,45 +6,39 @@
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:58:30 by emauduit          #+#    #+#             */
-/*   Updated: 2024/05/25 14:34:39 by emauduit         ###   ########.fr       */
+/*   Updated: 2024/06/03 10:30:43 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 #include <iostream>
 
+
 int Fixed::getRawBits(void) const
 {
-    std::cout << "getRawBits member function called" << std::endl;
     return (_value);
 }
 
 void Fixed::setRawBits(int const raw)
 {
     _value = raw;
-    std::cout << raw << std::endl;
 }
 
-Fixed& Fixed::operator=(const Fixed& other) 
+// overload operator
+
+Fixed& Fixed::operator = (const Fixed& rhs)
 {
-    if (this != &other) {
-        _value = other._value;
+    if (this != &rhs){
+        this->_value = rhs.getRawBits();
     }
-    std::cout << "Copy assignment operator called" << std::endl;
-    return *this;
+    
+    return (*this);
 }
 
-Fixed::Fixed(const Fixed& other): _value(other._value)
-{
-    std::cout << "Copy constructor called" << std::endl;
-}
+// constructor:
 
-Fixed::Fixed(): _value(0)
-{
-    std::cout << "Default constructor called" << std::endl;
-}
+Fixed::Fixed(const Fixed& rhs): _value(rhs._value) {}
 
-Fixed::~Fixed()
-{
-    std::cout << "Destructor called" << std::endl;
-}
+Fixed::Fixed(): _value(0) {}
+
+Fixed::~Fixed() {}
