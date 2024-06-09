@@ -1,0 +1,25 @@
+importance des destructeurs virtuels:
+
+    - lorsqu'on taff avec des classes de base et derivees et quand on manipule des objets polymorphiques via les pointeurs.
+
+    - si on supprime un objet derives via un pointeur de base sans un destructeur prive, le destructeur de la class derivee ne va pas etre appele.
+
+    - il faut donc utiliser le mot cle <virtual> pour bien faire comprendre.
+
+chaque class qui a une method Virtuel a une table de fonctions virtuelles que lon nomme: VTABLE
+
+    - cela contient des pointeurs vers les fonctions virtuelles de la classe
+    - object cree -> compilateur creer un pointeur vtable pour lobjet qui pointe vers vtable de la class
+    - quand une method est call, il regarde si la methode a une method override quelque part dans sa table
+
+1. Création d'un objet :
+    - Classe Base a une vtable.
+    - Classe Derived a une vtable qui redéfinit certaines entrées de la vtable de Base.
+
+2. Appel d'une méthode virtuelle :
+    - Pointeur vtable de l'objet est utilisé pour trouver la méthode correcte.
+
+3. Destruction d'un objet polymorphique :
+    - Destructeur virtuel dans la classe de base.
+    - Pointeur vtable de l'objet est utilisé pour appeler le destructeur de la classe dérivée.
+    - Appel des destructeurs dans l'ordre : Derived -> Base.

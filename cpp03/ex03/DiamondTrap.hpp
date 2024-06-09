@@ -6,7 +6,7 @@
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:10:41 by emauduit          #+#    #+#             */
-/*   Updated: 2024/06/07 19:05:50 by emauduit         ###   ########.fr       */
+/*   Updated: 2024/06/09 16:47:27 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 class DiamondTrap: public ScavTrap, public FragTrap
 {
-    
     public:
         
         void whoAmI();

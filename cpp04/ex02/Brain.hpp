@@ -1,32 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FragTrap.hpp                                       :+:      :+:    :+:   */
+/*   Brain.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emauduit <emauduit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/07 14:49:57 by emauduit          #+#    #+#             */
-/*   Updated: 2024/06/09 16:47:24 by emauduit         ###   ########.fr       */
+/*   Created: 2024/06/09 11:37:15 by emauduit          #+#    #+#             */
+/*   Updated: 2024/06/09 15:40:14 by emauduit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #pragma once
-#include "ClapTrap.hpp"
+#include <iostream>
 
-class FragTrap: virtual public ClapTrap
+#define PINK    "\033[38;5;213m"
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+
+class Brain
 {
     public:
         
-        void highFivesGuys(void);
-
-        FragTrap(const FragTrap & rhs);
+        void setIdeas(size_t index, const std::string sentence);
         
-        FragTrap(const std::string name);
-        FragTrap();
-        ~FragTrap();
+        Brain(const Brain & rhs);
+        Brain();
+        ~Brain();
 
-        FragTrap & operator = (const FragTrap & rhs);
+        Brain & operator = (const Brain & rhs);
+
+        std::string ideas[100];
+
+    protected:
         
     private:
+        
+
 };
