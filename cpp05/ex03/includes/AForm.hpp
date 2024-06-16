@@ -17,7 +17,8 @@ class AForm
 {
     public:
 
-        virtual void execute(Bureaucrat const & executor) const = 0;
+        void execute(Bureaucrat const & executor) const;
+        virtual void executeAction(void) const = 0;
         void beSigned(const Bureaucrat& bur);
 
         const std::string getName() const;
@@ -27,6 +28,7 @@ class AForm
 
         AForm(const AForm & rhs);
         AForm(const std::string name, size_t gradeToSign, size_t gradeToExec);
+        AForm();
         virtual ~AForm();
 
         AForm & operator = (const AForm & rhs);

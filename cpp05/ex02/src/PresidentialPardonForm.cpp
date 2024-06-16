@@ -34,7 +34,7 @@ PresidentialPardonForm & PresidentialPardonForm::operator=(const PresidentialPar
 
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm & rhs): AForm(rhs.getName(), rhs.getSignIt(), rhs.getExecuteIt()), _target(rhs.getTarget()){};
 
-PresidentialPardonForm::PresidentialPardonForm(const std::string target): AForm("PresidentialPardonForm", 145, 137), _target(target){};
+PresidentialPardonForm::PresidentialPardonForm(const std::string target): AForm("PresidentialPardonForm", 25, 5), _target(target){};
 
 PresidentialPardonForm::PresidentialPardonForm(): _target("Default"){};
 

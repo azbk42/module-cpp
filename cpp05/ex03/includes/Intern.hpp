@@ -34,15 +34,15 @@ class Intern
                 }
         };
 
-        struct hashTable {
-            std::string name;
-            AForm* (Intern::*function)(const std::string &target);
-        };
-        static const hashTable tab[3];
-
     private:
         AForm* createPresidential(const std::string& target);
         AForm* createRobot(const std::string& target);
         AForm* createShrubbery(const std::string& target);
+
+        struct Dictionnary {
+            std::string name;
+            AForm* (Intern::*function)(const std::string &target);
+        };
+        static const Dictionnary tab[3];
 
 };

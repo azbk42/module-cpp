@@ -27,6 +27,7 @@ class Bureaucrat
         
         Bureaucrat(const Bureaucrat & rhs);
         Bureaucrat(const std::string name, size_t grade);
+        Bureaucrat();
         ~Bureaucrat();
 
         Bureaucrat & operator = (const Bureaucrat & rhs);

@@ -17,12 +17,13 @@ class ShrubberyCreationForm: public AForm
 {
     public:
 
-        void execute(Bureaucrat const & executor) const;
+        void executeAction(void) const;
 
         std::string const getTarget() const;
 
         ShrubberyCreationForm(const ShrubberyCreationForm & rhs);
         ShrubberyCreationForm(const std::string target);
+        ShrubberyCreationForm();
         ~ShrubberyCreationForm();
 
         ShrubberyCreationForm & operator = (const ShrubberyCreationForm & rhs);
@@ -42,4 +43,5 @@ class ShrubberyCreationForm: public AForm
         void _printTree(std::ofstream& file) const;
         
         const std::string _target;
+        
 };

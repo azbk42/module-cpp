@@ -3,7 +3,7 @@
 #include "RobotomyRequestForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 
-const Intern::hashTable Intern::tab[3] ={
+const Intern::Dictionnary Intern::tab[3] ={
 
         {"PresidentialPardonForm", &Intern::createPresidential},
         {"RobotomyRequestForm", &Intern::createRobot},
@@ -21,13 +21,9 @@ AForm* Intern::makeForm(const std::string name, const std::string target)
             return (this->*tab[i].function)(target);
         }
     }
+    std::cerr << "Sorry can't find for : " << name << " because: ";
     throw NoFormNameMatches();
 }
-
-// ######################################################
-// #                 GET - SET                          #
-// ######################################################
-
 
 // ######################################################
 // #                 OVERLOARD OPERATOR                 #

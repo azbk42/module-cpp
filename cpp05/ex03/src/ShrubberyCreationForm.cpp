@@ -4,18 +4,10 @@
 // #                 PUBLIC METHOD                      #
 // ######################################################
 
-void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
+void ShrubberyCreationForm::executeAction(void) const
 {
-    if (executor.getGrade() > getExecuteIt()){
-        throw GradeTooLowException();
-    }
-    if (getSigned() == false){
-        throw NotSigned();
-    }
-
     _createFileAndPrint(_target);
 }
-
 
 // ######################################################
 // #                 GET - SET                          #
@@ -43,6 +35,8 @@ ShrubberyCreationForm & ShrubberyCreationForm::operator=(const ShrubberyCreation
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm & rhs): AForm(rhs.getName(), rhs.getSignIt(), rhs.getExecuteIt()), _target(rhs.getTarget()){};
 
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string target): AForm("ShrubberyCreationForm", 145, 137), _target(target){};
+
+ShrubberyCreationForm::ShrubberyCreationForm(): _target("Default") {};
 
 ShrubberyCreationForm::~ShrubberyCreationForm(){};
 

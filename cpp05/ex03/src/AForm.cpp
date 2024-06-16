@@ -17,6 +17,17 @@ void AForm::beSigned(const Bureaucrat& bur)
     }
 }
 
+void AForm::execute(Bureaucrat const & executor) const
+{
+    if (executor.getGrade() > getExecuteIt()){
+        throw GradeTooLowException();
+    }
+    if (getSigned() == false){
+        throw NotSigned();
+    }
+    executeAction();
+}
+
 // ######################################################
 // #                 GET - SET                          #
 // ######################################################
@@ -71,6 +82,8 @@ std::ostream& operator << (std::ostream& o, const AForm & rhs)
 
 AForm::AForm(const AForm& rhs): _name(rhs._name), _requiredSignIt(rhs._requiredSignIt), 
                     _requiredExecuteIt(rhs._requiredExecuteIt), _signed(rhs._signed){};
+
+AForm::AForm(): _name("Default"), _requiredSignIt(150), _requiredExecuteIt(150), _signed(false){};
 
 AForm::AForm(const std::string name, size_t gradeToSign, size_t gradeToExec): _name(name), _requiredSignIt(gradeToSign), 
                                                                         _requiredExecuteIt(gradeToExec), _signed(false)

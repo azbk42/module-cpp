@@ -16,11 +16,13 @@ class RobotomyRequestForm: public AForm
 {
     public:
 
-        void execute(Bureaucrat const & executor) const;
+        void executeAction(void) const;
+        
         std::string const getTarget() const;
 
         RobotomyRequestForm(const RobotomyRequestForm & rhs);
         RobotomyRequestForm(const std::string target);
+        RobotomyRequestForm();
         ~RobotomyRequestForm();
 
         RobotomyRequestForm & operator = (const RobotomyRequestForm & rhs);

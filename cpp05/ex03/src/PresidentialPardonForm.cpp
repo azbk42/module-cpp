@@ -4,15 +4,8 @@
 // #                 PUBLIC METHOD                      #
 // ######################################################
 
-void PresidentialPardonForm::execute(Bureaucrat const & executor) const
+void PresidentialPardonForm::executeAction(void) const
 {
-    if (executor.getGrade() > getExecuteIt()){
-        throw GradeTooLowException();
-    }
-    if (getSigned() == false){
-        throw NotSigned();
-    }
-
     std::cout << _target << " has been pardoned by Zaphod Beeblebrox" << std::endl;
 }
 
@@ -41,7 +34,9 @@ PresidentialPardonForm & PresidentialPardonForm::operator=(const PresidentialPar
 
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm & rhs): AForm(rhs.getName(), rhs.getSignIt(), rhs.getExecuteIt()), _target(rhs.getTarget()){};
 
-PresidentialPardonForm::PresidentialPardonForm(const std::string target): AForm("PresidentialPardonForm", 145, 137), _target(target){};
+PresidentialPardonForm::PresidentialPardonForm(const std::string target): AForm("PresidentialPardonForm", 25, 5), _target(target){};
+
+PresidentialPardonForm::PresidentialPardonForm(): _target("Default"){};
 
 PresidentialPardonForm::~PresidentialPardonForm(){};
 
