@@ -4,16 +4,19 @@
 #include "PresidentialPardonForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "Intern.hpp"
-
 #include <iostream>
 
 int main()
 {
     Intern Jose;
+    std::cout << BLUE << "Init Testeur (40):" << RESET << std::endl;
     Bureaucrat Testeur("Testeur", 40);
     AForm* cv = NULL;
     AForm* tool = NULL;
 
+
+    std::cout << BLUE << "Init cv = robotomy\nAnd tool = unknow" << std::endl;
+    std:: cout << "Try to get name cv and tool:" << RESET << std::endl;
     try{
         cv = Jose.makeForm("RobotomyRequestForm", "YO");
         tool = Jose.makeForm("Unknow", "YO");

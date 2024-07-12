@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/08 09:33:48 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/08 09:33:48 by marvin           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <iostream>
 #include "Animal.hpp"
 #include "Dog.hpp"
@@ -19,7 +7,10 @@
 
 int main(void)
 {
-    std::cout << "Constructor for rex (Dog):" << std::endl;
+    std::cout << "Constructor for Animal only:" << std::endl;
+    Animal only;
+
+    std::cout << "\nConstructor for rex (Dog):" << std::endl;
     Animal* rex = new Dog();
 
     std::cout << "\nConstructor for pluto (Animal):" << std::endl;
@@ -52,7 +43,7 @@ int main(void)
     delete minou;
 
 
-    std::cout << "\nInit Wrong Class:" << std::endl;
+    std::cout << "\nInit Wrongcat who Inherit from WrongAnimal:" << std::endl;
     WrongAnimal* test = new WrongCat();
     test->makeSound();
 

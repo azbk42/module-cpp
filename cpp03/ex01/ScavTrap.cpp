@@ -26,8 +26,11 @@ void ScavTrap::guardGate(void)
 
 void ScavTrap::attack(const std::string& target)
 {
-    if (_checkStatus()){
-        std::cout << "Scaptrap " << _name << " attacks " << target
+    if (_hitPoints == 0 || _energyPoints == 0){
+        std::cout << "Scavtrap " << _name << " is dead or exhausted, he can't do nothing" << std::endl;
+    }
+    else{
+        std::cout << "Scavtrap " << _name << " attacks " << target
                     << ", causing " <<  _attackDammage << " points of damage!" 
                     << std::endl;
         _energyPoints -= 1;  

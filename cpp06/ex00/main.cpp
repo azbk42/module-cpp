@@ -1,24 +1,47 @@
 #include <iostream>
 #include <string>
+#include <cstdlib>
 #include "ScalarConverter.hpp"
 
-int main()
+
+int main(int ac, char **av)
 {
-    ScalarConverter::convert("0");
-    ScalarConverter::convert("str");
-    ScalarConverter::convert("c");
-    ScalarConverter::convert("42");
-    ScalarConverter::convert("-42");
-    ScalarConverter::convert("42.42f");
-    ScalarConverter::convert("42.42");
-    ScalarConverter::convert("inf");
-    ScalarConverter::convert("inff");
-    ScalarConverter::convert("-inf");
-    ScalarConverter::convert("-inff");
-    ScalarConverter::convert("nanf");
-    ScalarConverter::convert("nan");
+    if (ac != 2){
+        return (1);
+    }
+    ScalarConverter::convert(av[1]);
 
-    ScalarConverter::convert("1.0e40");
-
-    return 0;
+    return (0);
 }
+
+// int main()
+// {
+//     ScalarConverter::convert("0");
+//     std::cout << std::endl;
+//     ScalarConverter::convert("str");
+//     std::cout << std::endl;
+//     ScalarConverter::convert("c");
+//     std::cout << std::endl;
+//     ScalarConverter::convert("42");
+//     std::cout << std::endl;
+//     ScalarConverter::convert("-42");
+//     std::cout << std::endl;
+//     ScalarConverter::convert("42.0f");
+//     std::cout << std::endl;
+//     ScalarConverter::convert("42.42");
+//     std::cout << std::endl;
+//     ScalarConverter::convert("inf");
+//     std::cout << std::endl;
+//     ScalarConverter::convert("inff");
+//     std::cout << std::endl;
+//     ScalarConverter::convert("-inf");
+//     std::cout << std::endl;
+//     ScalarConverter::convert("-inff");
+//     std::cout << std::endl;
+//     ScalarConverter::convert("nanf");
+//     std::cout << std::endl;
+//     ScalarConverter::convert("nan");
+//     std::cout << std::endl;
+
+//     return 0;
+// }

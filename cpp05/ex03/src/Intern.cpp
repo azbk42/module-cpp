@@ -21,7 +21,7 @@ AForm* Intern::makeForm(const std::string name, const std::string target)
             return (this->*tab[i].function)(target);
         }
     }
-    std::cerr << "Sorry can't find for : " << name << " because: ";
+    std::cerr << "Sorry can't find for: " << name << " because ";
     throw NoFormNameMatches();
 }
 

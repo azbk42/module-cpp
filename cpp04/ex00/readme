@@ -23,3 +23,10 @@ chaque class qui a une method Virtuel a une table de fonctions virtuelles que lo
     - Destructeur virtuel dans la classe de base.
     - Pointeur vtable de l'objet est utilisé pour appeler le destructeur de la classe dérivée.
     - Appel des destructeurs dans l'ordre : Derived -> Base.
+
+Polymorphisme:
+
+    - Permet d'override une fonctions pour lui donner un nouveau comportement dans la class derivee
+    - doit utiliser virtual dans la class de base
+
+    - utile pour que lon utilise les meme fonctions selon lobjet mais avec leur propre comportement

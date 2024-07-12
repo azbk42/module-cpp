@@ -16,14 +16,16 @@ int main(void)
 {
     std::cout << GREEN << "Init ScavTrap Walle" << RESET << std::endl;
     ScavTrap Walle("Wall-E");
-    std::cout << GREEN << "\nInit Claptrap Eve" << RESET << std::endl;
-    ClapTrap Eve("Eve");
     
     std::cout << GREEN << "Display PV HEALTH ENERGY ATTACK:" << RESET << std::endl;
     std::cout << Walle.getName() << ":" << std::endl;
     std::cout << "Health: " << Walle.getHitPoints() << std::endl;
     std::cout << "Energy: " << Walle.getEnergyPoints() << std::endl;
     std::cout << "Attack: " << Walle.getAttackDammage() << "\n" << std::endl;
+
+    std::cout << GREEN << "\nInit Claptrap Eve" << RESET << std::endl;
+    ClapTrap Eve("Eve");
+
     std::cout << Eve.getName() << ":" << std::endl;
     std::cout << "Health: " << Eve.getHitPoints() << std::endl;
     std::cout << "Energy: " << Eve.getEnergyPoints() << std::endl;
@@ -39,6 +41,8 @@ int main(void)
     std::cout << GREEN << "\nWall-E gets Hit for 80 and a second time for 70 pts:" << RESET << std::endl;
     Walle.takeDamage(80);
     Walle.takeDamage(70);
+    Walle.attack("Unknow");
+    Eve.attack("TEST");
 
     std::cout << GREEN << "\nWall-E try to heal himself but...." << RESET << std::endl;
     Walle.beRepaired(10);

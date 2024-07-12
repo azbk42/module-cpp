@@ -19,41 +19,41 @@
 
 int main(void)
 {
-    //Animal* minou = new Cat();
+    Animal* minou = new Cat();
 
-    // delete minou;
-    //minou->getType();
-    // Animal* rex = new Dog();
-    // rex->getType();
-    // delete rex;
+    delete minou;
+    minou->getType();
+    Animal* rex = new Dog();
+    rex->getType();
+    delete rex;
 
-    // Animal *tab[100];
-    // for (int i = 0, j = 50; i < 50; i++, j++){
-    //     tab[i] = new Cat();
-    //     tab[j] = new Dog();
-    // }
+    Animal *tab[100];
+    for (int i = 0, j = 50; i < 50; i++, j++){
+        tab[i] = new Cat();
+        tab[j] = new Dog();
+    }
 
-    // std::cout << std::endl;
-    // tab[0]->makeSound();
-    // tab[35]->makeSound();
-    // tab[55]->makeSound();
-    // tab[80]->makeSound();
-    // std::cout << std::endl;
+    std::cout << std::endl;
+    tab[0]->makeSound();
+    tab[35]->makeSound();
+    tab[55]->makeSound();
+    tab[80]->makeSound();
+    std::cout << std::endl;
 
-    // for (int i = 0; i < 100; i++){
-    //     delete tab[i];
-    // }
+    for (int i = 0; i < 100; i++){
+        delete tab[i];
+    }
 
-    Dog basic;
+    // Dog basic;
  
-    basic.setBrainIdea(0, "SALUT");
-    std::cout << basic.getBrainIdea(0) << std::endl;
+    // basic.setBrainIdea(0, "SALUT");
+    // std::cout << basic.getBrainIdea(0) << std::endl;
 
-    Dog tmp = basic;
+    // Dog tmp = basic;
 
-    tmp.setBrainIdea(0, "BONJOUR");
-    std::cout << tmp.getBrainIdea(0) << std::endl;
-    std::cout << basic.getBrainIdea(0) << std::endl;
+    // tmp.setBrainIdea(0, "BONJOUR");
+    // std::cout << tmp.getBrainIdea(0) << std::endl;
+    // std::cout << basic.getBrainIdea(0) << std::endl;
 
 
     return (0);

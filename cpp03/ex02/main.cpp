@@ -18,10 +18,14 @@ int main(void)
 {
     FragTrap robot("Wall-E");
 
+    std::cout << std::endl;
     robot.highFivesGuys();
     
+    std::cout << std::endl;
     std::cout << "PV: " << robot.getHitPoints()
             << "\nEnergy: " << robot.getEnergyPoints()
             << "\nAttack: " << robot.getAttackDammage() << std::endl;
+    std::cout << std::endl;
+    
     return (0);
 }

@@ -10,7 +10,7 @@ class ScalarConverter
 {
     public:
 
-       static void convert(const std::string& litteral);
+       static void convert(const std::string& literal);
 
     private:
         ScalarConverter(const ScalarConverter& rhs);
@@ -19,8 +19,4 @@ class ScalarConverter
 
         ScalarConverter& operator = (const ScalarConverter& rhs);
 
-        static void _stringToChar(const std::string& litteral);
-        static void _stringToInt(const std::string& litteral);
-        static void _stringToFloat(const std::string& litteral);
-        static void _stringToDouble(const std::string& litteral);
 };

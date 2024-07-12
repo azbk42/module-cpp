@@ -20,9 +20,16 @@ int main(void)
     DiamondTrap test("Wall-E");
     
     std::cout << "\nMethod:" << std::endl;
+    std::cout << GREEN << "HIGH FIVE:" << RESET << std::endl;
     test.highFivesGuys();
+
+    std::cout << GREEN << "Attack:" << RESET <<  std::endl;
     test.attack("YO");
+
+    std::cout << GREEN << "Guard:" << RESET <<  std::endl;
     test.guardGate();
+
+    std::cout << GREEN << "\nWho am i:" << RESET <<  std::endl;
     test.whoAmI();
 
     std::cout << "\nDestructor:" << std::endl; 

@@ -15,25 +15,28 @@
 ################################################################################
 
 NAME = poly
-CC			= c++
-CFLAGS		= -g3 -std=c++98 -Wall -Wextra -Werror
+CC = c++
+CFLAGS = -g3 -std=c++98 -Wall -Wextra -Werror -I$(INCLUDE_DIR)
 MAKEFLAGS += --no-print-directory
 
 ################################################################################
 #                                  SOURCES                                     #
 ################################################################################
-SRC_DIR = ./
+SRC_DIR = src
+INCLUDE_DIR = ./includes
 
-SRC = main.cpp \
-	Animal.cpp \
+SRC = Animal.cpp \
+	Brain.cpp \
 	Cat.cpp \
 	Dog.cpp \
 	WrongAnimal.cpp \
-	WrongCat.cpp \
-	Brain.cpp
+	WrongCat.cpp
+
+SRC := $(addprefix $(SRC_DIR)/, $(SRC))
+SRC += main.cpp
 
 ################################################################################
-#                                  OBJECTS / DEP                                #
+#                                  OBJECTS / DEP                               #
 ################################################################################
 
 OBJ_DIR = obj
@@ -55,15 +58,20 @@ RESET = \033[0m
 #                                  MAKEFILE                                    #
 ################################################################################
 
-all: $(NAME) 
+all: $(NAME)
 
-$(NAME): $(OBJ) 
+$(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 	@echo "\n$(CYAN)$(NAME) compiled!$(RESET)"
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+$(OBJ_DIR)/main.o: main.cpp
 	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) -MMD -MP -c $< -o $@ 
+	@$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
+	@echo "$(MAGENTA)Compiling: $< $(DEF_COLOR)$(RESET)"
+
+$(OBJ_DIR)/%.o: %.cpp
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
 	@echo "$(MAGENTA)Compiling: $< $(DEF_COLOR)$(RESET)"
 
 ################################################################################
@@ -71,15 +79,18 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 ################################################################################
 
 clean:
-		@echo "\n$(RED)Removing: $(OBJ) $(OBJ_DIR) $(DEF_COLOR)$(RESET)\n"
-		@rm -rf $(OBJ_DIR)
-		@echo "$(RED)Dependencies have been removed.$(RESET)"
-		@echo "$(RED)Obj directory has been removed.$(RESET)\n"
+	@echo "\n$(RED)Removing: $(OBJ) $(OBJ_DIR) $(DEF_COLOR)$(RESET)\n"
+	@rm -rf $(OBJ_DIR)
+	@echo "$(RED)Dependencies have been removed.$(RESET)"
+	@echo "$(RED)Obj directory has been removed.$(RESET)\n"
 
 fclean: clean
-		@rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
-.EXTRA_PREREQS:= $(abspath $(lastword $(MAKEFILE_LIST)))
+################################################################################
+#                                 DEPENDENCIES                                 #
+################################################################################
+
 -include $(DEPS)

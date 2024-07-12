@@ -25,7 +25,10 @@ MAKEFLAGS += --no-print-directory
 SRC_DIR = src
 INCLUDE_DIR = ./includes
 
-SRC = ScalarConverter.cpp
+SRC = ScalarConverter.cpp \
+	print_result.cpp \
+	find_type.cpp
+
 
 SRC := $(addprefix $(SRC_DIR)/, $(SRC))
 SRC += main.cpp
