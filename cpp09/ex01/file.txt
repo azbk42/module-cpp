@@ -1,0 +1,15 @@
+
+
+
+OK chiffre compris entre 0 et 9
+
+OK obligatoirement deux stacks dans la pile quand on trouve un operator
+
+OK operator: + - / *     
+
+OK apres chaque char il doit y avoir un espace ou un /0
+
+OK si une erreur, throw error
+
+1 2 * 2 / 2 * 2 4 - +
+

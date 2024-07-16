@@ -37,7 +37,7 @@ std::ostream &operator<<(std::ostream &os, const Span &rhs);
 template <typename It>
 void Span::addRange(It begin, It end) {
     if (std::distance(begin, end) + _tab.size() > _N) {
-        throw std::out_of_range("Adding these elements would exceed the maximum capacity of the Span.");
+        throw std::out_of_range("With this range your array will be full !");
     }
     _tab.insert(begin, end);
 }
