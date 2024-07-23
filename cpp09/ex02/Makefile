@@ -25,7 +25,7 @@ MAKEFLAGS += --no-print-directory
 SRC_DIR = src
 INCLUDE_DIR = ./includes
 
-SRC = 
+SRC = PmergeMe.cpp
 
 
 SRC := $(addprefix $(SRC_DIR)/, $(SRC))
