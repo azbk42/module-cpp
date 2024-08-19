@@ -16,7 +16,7 @@ void PmergeMe::init_pmerge(char** av)
                 _deq.push_back(nb);
             }
         }
-        // T sorted_container = merge_insert_sort(container);
+        FordJ(_vec);
         // std::cout << "Sorted data: ";
         // for (typename T::iterator it = sorted_container.begin(); it != sorted_container.end(); ++it) {
         //     std::cout << *it << " ";
@@ -26,6 +26,28 @@ void PmergeMe::init_pmerge(char** av)
     catch (std::invalid_argument& e) {
         std::cerr << e.what() << std::endl;
     }
+}
+
+std::vector<int> PmergeMe::FordJ(std::vector<int> vec)
+{
+    std::vector<std::pair<int, int> > p;
+    
+
+    size_t n = vec.size() / 2;
+    size_t i = 0;
+
+    while (n != 0){
+        p.push_back(std::make_pair(vec.at(i), vec.at(i+1)));
+        i +=2;
+        n--;
+    } 
+
+    i = 0;
+    while (i < (vec.size() /2)){
+        std::cout << "(" << p[i].first << ", " << p[i].second << ")" << std::endl;
+        i++;
+    }
+    return vec;
 }
 
 // ################################################################################

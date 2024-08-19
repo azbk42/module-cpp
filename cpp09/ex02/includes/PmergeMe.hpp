@@ -28,6 +28,9 @@ private:
     void init_pmerge(char **av);
     void find_double(int nb, std::vector<int> &array);
 
+    // vector
+    std::vector<int> FordJ(std::vector<int> vec);
+
     std::vector<int> _vec;
     std::deque<int> _deq;
     
