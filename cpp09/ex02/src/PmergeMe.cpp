@@ -28,26 +28,106 @@ void PmergeMe::init_pmerge(char** av)
     }
 }
 
+void PmergeMe::merge(std::vector<std::pair<int, int> > &p, int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    std::vector<std::pair<int, int> > left_array(n1);
+    std::vector<std::pair<int, int> > right_array(n2);
+
+    for (int i = 0; i < n1; i++) {
+        left_array[i] = p[left + i];
+    }
+    for (int j = 0; j < n2; j++) {
+        right_array[j] = p[mid + 1 + j];
+    }
+
+    int i = 0;
+    int j = 0;
+    int k = left;
+
+    while (i < n1 && j < n2) {
+        if (left_array[i].first <= right_array[j].first) {  // Corrigé ici
+            p[k] = left_array[i];
+            i++;
+        } else {
+            p[k] = right_array[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < n1) {
+        p[k] = left_array[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2) {
+        p[k] = right_array[j];
+        j++;
+        k++;
+    }
+}
+
+void PmergeMe::merge_sort(std::vector<std::pair<int, int> > &p, int left, int right)
+{
+    if (left >= right){
+        return;
+    }
+
+    int mid = left + (right - left) / 2;
+    merge_sort(p, left, mid);
+    merge_sort(p, mid+1, right);
+    merge(p, left, mid, right);
+}
+
 std::vector<int> PmergeMe::FordJ(std::vector<int> vec)
 {
     std::vector<std::pair<int, int> > p;
     
+    create_and_sort_pair(vec, p);
 
-    size_t n = vec.size() / 2;
     size_t i = 0;
-
-    while (n != 0){
-        p.push_back(std::make_pair(vec.at(i), vec.at(i+1)));
-        i +=2;
-        n--;
-    } 
-
-    i = 0;
     while (i < (vec.size() /2)){
         std::cout << "(" << p[i].first << ", " << p[i].second << ")" << std::endl;
         i++;
     }
+    
+
+    // use merge sort to sort pair with p.first
+
+    merge_sort(p, 0, (vec.size() /2 - 1));
+
+    i = 0;
+    std::cout << std::endl;
+    while (i < (vec.size() /2)){
+        std::cout << "(" << p[i].first << ", " << p[i].second << ")" << std::endl;
+        i++;
+    }
+
     return vec;
+    
+}
+
+void PmergeMe::create_and_sort_pair(std::vector<int> const &vec, std::vector<std::pair<int, int> > &p)
+{
+    size_t n = vec.size() / 2;
+    size_t i = 0;
+    size_t j = 0;
+
+    while (n != 0){
+        p.push_back(std::make_pair(vec.at(i), vec.at(i+1)));
+        if (p[j].first < p[j].second){
+            int tmp = p[j].first;
+            p[j].first = p[j].second;
+            p[j].second = tmp;
+        }
+        i +=2;
+        j ++;
+        n--;
+    } 
+
 }
 
 // ################################################################################

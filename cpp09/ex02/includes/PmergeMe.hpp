@@ -30,6 +30,9 @@ private:
 
     // vector
     std::vector<int> FordJ(std::vector<int> vec);
+    void create_and_sort_pair(std::vector<int> const &vec, std::vector<std::pair<int, int> > &p);
+    void merge_sort(std::vector<std::pair<int, int> > &p, int left, int right);
+    void merge(std::vector<std::pair<int, int> > &p, int left, int mid, int right);
 
     std::vector<int> _vec;
     std::deque<int> _deq;
