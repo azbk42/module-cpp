@@ -8,8 +8,8 @@ int main(int ac, char** av)
                   << "./PmergeMe \"5 4 3 8 7 1 2 9\"" << std::endl;
         return 2;
     }
-    std::vector<int> vec;
-    PmergeMe pmerge(vec, av);
+
+    PmergeMe pmerge(av);
 
     // std::deque<int> dek;
     // PmergeMe t(dek, av);

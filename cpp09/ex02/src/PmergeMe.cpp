@@ -3,10 +3,41 @@
 // #                                  PMERGE                                      #
 // ################################################################################
 
+void PmergeMe::init_pmerge(char** av) 
+{
+    try {
+        for (size_t i = 1; av[i] != NULL; i++) {
+            parsing_arg(av[i]);
+            std::istringstream iss(av[i]);
+            int nb;
+            while (iss >> nb) {
+                find_double(nb, _vec);
+                _vec.push_back(nb);
+                _deq.push_back(nb);
+            }
+        }
+        // T sorted_container = merge_insert_sort(container);
+        // std::cout << "Sorted data: ";
+        // for (typename T::iterator it = sorted_container.begin(); it != sorted_container.end(); ++it) {
+        //     std::cout << *it << " ";
+        // }
+        // std::cout << std::endl; 
+    }
+    catch (std::invalid_argument& e) {
+        std::cerr << e.what() << std::endl;
+    }
+}
 
 // ################################################################################
 // #                                  PARSING                                     #
 // ################################################################################
+
+void PmergeMe::find_double(int nb, std::vector<int> &array)
+{
+    if (std::find(array.begin(), array.end(), nb) != array.end()) {
+        throw std::invalid_argument("You can't have double");
+    }
+}
 
 void PmergeMe::parsing_after_find_plus(char x, char after, char before, size_t i) {
     if (x == '+') {
@@ -58,12 +89,17 @@ void PmergeMe::parsing_arg(const std::string arg) {
 }
 
 // Constructeurs et destructeurs
+PmergeMe::PmergeMe(char** av){
+        init_pmerge(av);
+}
 PmergeMe::PmergeMe() {}
 PmergeMe::~PmergeMe() {}
 PmergeMe::PmergeMe(const PmergeMe& rhs) { *this = rhs; }
 PmergeMe& PmergeMe::operator=(const PmergeMe& rhs) 
 {
     if (this != &rhs) {
+        _vec = rhs._vec;
+        _deq = rhs._deq;
     }
     return *this;
 }
