@@ -106,6 +106,29 @@ std::vector<int> PmergeMe::FordJ(std::vector<int> vec)
         i++;
     }
 
+    std::vector<int> main_chain;
+
+    i = 0;
+    // add the number who is paired with the first one
+    main_chain.push_back(p[0].second);
+    while (i < (vec.size() /2)){
+        main_chain.push_back(p[i].first);
+        i++;
+    }
+
+    for (size_t i = 0; i < main_chain.size(); i++){
+        std::cout << " " << main_chain[i];
+    }
+    std::cout <<  std::endl;
+
+    std::vector<int> low_pair_number;
+
+    i = 1;
+    while (i < (vec.size() /2)){
+        low_pair_number.push_back(p[i].second);
+        i++;
+    }
+
     return vec;
     
 }
