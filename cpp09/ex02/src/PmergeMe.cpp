@@ -33,15 +33,61 @@ void PmergeMe::init_pmerge(char** av)
         }
         time_vec = clock() - time_vec;
 
+        clock_t time_deque = clock();
+        if (n > 1){
+            _deq = FordJ(_deq);
+        }
+        time_deque = clock() - time_deque;
+
         std::cout << "after: ";
         print_array(_vec);
 
         std::cout << "Time to process a range of " << n << " elements with std::vector : " << (float)time_vec * 1000 / CLOCKS_PER_SEC << " ms" << std::endl;
-		//std::cout << "Time to process a range of " << ac - 1 << " elements with std::deque : " << (float)timeDeq * 1000 / CLOCKS_PER_SEC << " ms" << std::endl;
+		std::cout << "Time to process a range of " << n << " elements with std::deque : " << (float)time_deque * 1000 / CLOCKS_PER_SEC << " ms" << std::endl;
     }
     catch (std::invalid_argument& e) {
         std::cerr << e.what() << std::endl;
     }
+}
+
+std::vector<int> PmergeMe::FordJ(std::vector<int> vec)
+{
+    std::vector<std::pair<int, int> > p;
+    size_t len  = vec.size();
+    size_t n = len / 2;
+    size_t i = 0;
+
+    // step 1 - 2
+    create_and_sort_pair(vec, p);
+
+    // step 3
+    merge_sort(p, 0, (n - 1));
+
+    // step 4
+    std::vector<int> main_chain;
+    i = 0;
+    main_chain.push_back(p[0].second);
+    while (i < n){
+        main_chain.push_back(p[i].first);
+        i++;
+    }
+
+    std::vector<int> low_pair_number;
+    i = 1;
+    while (i < n){
+        low_pair_number.push_back(p[i].second);
+        i++;
+    }
+
+    // step 5
+    insert_remaining_elements(low_pair_number, main_chain, p, n);
+
+    if ((len % 2) != 0){
+        int nb = vec[len-1];
+        std::vector<int>::iterator index = binarySearch(main_chain, 0, len - 1, nb);
+        main_chain.insert(index, nb);
+    }
+    return main_chain; 
 }
 
 void PmergeMe::merge(std::vector<std::pair<int, int> > &p, int left, int mid, int right) {
@@ -63,7 +109,7 @@ void PmergeMe::merge(std::vector<std::pair<int, int> > &p, int left, int mid, in
     int k = left;
 
     while (i < n1 && j < n2) {
-        if (left_array[i].first <= right_array[j].first) {  // Corrigé ici
+        if (left_array[i].first <= right_array[j].first) { 
             p[k] = left_array[i];
             i++;
         } else {
@@ -98,54 +144,35 @@ void PmergeMe::merge_sort(std::vector<std::pair<int, int> > &p, int left, int ri
     merge(p, left, mid, right);
 }
 
-std::vector<int> PmergeMe::FordJ(std::vector<int> vec)
+void PmergeMe::binary_insert(const std::vector<std::vector<int> >& groups, std::vector<int>& main_chain, std::vector<std::pair<int, int> >& p, size_t n)
 {
-    std::vector<std::pair<int, int> > p;
-    size_t len  = vec.size();
-    size_t n = len / 2;
-    size_t i = 0;
-
-    create_and_sort_pair(vec, p);
-
-    // use merge sort to sort pair with p.first
-    merge_sort(p, 0, (n - 1));
-
-    // add the number who is paired with the first one
-    std::vector<int> main_chain;
-    i = 0;
-    main_chain.push_back(p[0].second);
-    while (i < n){
-        main_chain.push_back(p[i].first);
-        i++;
+   for (std::vector<std::vector<int> >::const_reverse_iterator it = groups.rbegin(); it != groups.rend(); ++it)
+    {
+        for (std::vector<int>::const_reverse_iterator jt = it->rbegin(); jt != it->rend(); ++jt)
+        {
+            int element = *jt;
+            int right = find_index_in_pair(p, main_chain, element, n);
+            std::vector<int>::iterator index = binarySearch(main_chain, 0, right, element);
+            main_chain.insert(index, element);
+        }
     }
-
-    std::vector<int> low_pair_number;
-    i = 1;
-    while (i < n){
-        low_pair_number.push_back(p[i].second);
-        i++;
-    }
-
-    if ((len % 2) != 0){
-        int nb = vec[len-1];
-        std::vector<int>::iterator index = binarySearch(main_chain, 0, len - 1, nb);
-        main_chain.insert(index, nb);
-    }
-    binary_insert(low_pair_number, main_chain, p, n);
-
-    return main_chain; 
 }
 
-void PmergeMe::binary_insert(std::vector<int> &low_pair_number, std::vector<int> &main_chain, std::vector<std::pair<int, int> > &p, size_t n)
+int PmergeMe::find_index_in_pair(std::vector<std::pair<int, int> > &p, std::vector<int> &main_chain,int const low_pair, int const n)
 {
-
-    for (size_t i = 0; i < low_pair_number.size(); i++){
-        int right = find_index_in_pair(p, main_chain ,low_pair_number[i], n);
-
-        std::vector<int>::iterator index = binarySearch(main_chain, 0, right, low_pair_number[i]);
-        main_chain.insert(index, low_pair_number[i]);
+    int i = 1;
+    int first = 0;
+    while (i < n){
+        if (low_pair == p[i].second){
+            first = p[i].first;
+        }
+        i++;
     }
-
+    i = 0;
+    while (main_chain[i] != first){
+        i++;
+    }
+    return i;
 }
 
 std::vector<int>::iterator PmergeMe::binarySearch(std::vector<int> &main_chain, int low, int high, int x)
@@ -157,22 +184,17 @@ std::vector<int>::iterator PmergeMe::binarySearch(std::vector<int> &main_chain, 
     while (low_it <= high_it) {
         mid_it = low_it + std::distance(low_it, high_it) / 2;
 
-        // Si l'élément trouvé est plus grand que x
         if (*mid_it > x) {
-            // Vérifiez si le précédent est plus petit ou égal à x
+
             if (mid_it == main_chain.begin() || *(mid_it - 1) <= x) {
                 return mid_it;
             }
-            // Sinon, continuez la recherche à gauche
             high_it = mid_it - 1;
         }
-        // Si l'élément trouvé est inférieur ou égal à x, continuez à droite
         else {
             low_it = mid_it + 1;
         }
     }
-    
-    // Si aucun élément ne remplit la condition, retournez low_it qui sera l'emplacement d'insertion
     if (x <= *(main_chain.begin()))
         return main_chain.begin();
     else{
@@ -196,11 +218,157 @@ void PmergeMe::create_and_sort_pair(std::vector<int> const &vec, std::vector<std
         i +=2;
         j ++;
         n--;
-    } 
-
+    }
 }
 
-int PmergeMe::find_index_in_pair(std::vector<std::pair<int, int> > &p, std::vector<int> &main_chain,int const low_pair, int const n)
+void PmergeMe::insert_remaining_elements(std::vector<int>& low_pair_number, std::vector<int>& main_chain, std::vector<std::pair<int, int> >& p, size_t n)
+{
+    std::vector<std::vector<int> > groups;
+    const size_t grou_tab[] = { 2, 2, 6, 10, 22, 42, 86, 170, 342, 682, 1366 };
+
+    size_t i = 0;
+
+    for (size_t group_idx = 0; group_idx < 11; ++group_idx)
+    {
+        size_t group_size = grou_tab[group_idx];
+
+        if (i + group_size > low_pair_number.size()) {
+            group_size = low_pair_number.size() - i;
+        }
+
+        groups.push_back(std::vector<int>(low_pair_number.begin() + i, low_pair_number.begin() + i + group_size));
+
+        i += group_size;
+
+        if (i >= low_pair_number.size()) {
+            break;
+        }
+    }
+
+    // // functions print groups
+    // std::cout << "main = ";
+    // print_array(main_chain);
+    // std::cout << "low = ";
+    // print_array(low_pair_number);
+    // print_groups(groups);
+
+    // Insertion selon l'ordre spécifié
+    binary_insert(groups, main_chain, p, n);
+}
+
+// ################################################################################
+// #                                   DEQUE                                      #
+// ################################################################################
+
+
+std::deque<int> PmergeMe::FordJ(std::deque<int> vec)
+{
+    std::deque<std::pair<int, int> > p;
+    size_t len  = vec.size();
+    size_t n = len / 2;
+    size_t i = 0;
+
+    // step 1 - 2
+    create_and_sort_pair(vec, p);
+
+    // step 3
+    merge_sort(p, 0, (n - 1));
+
+    // step 4
+    std::deque<int> main_chain;
+    i = 0;
+    main_chain.push_back(p[0].second);
+    while (i < n){
+        main_chain.push_back(p[i].first);
+        i++;
+    }
+
+    std::deque<int> low_pair_number;
+    i = 1;
+    while (i < n){
+        low_pair_number.push_back(p[i].second);
+        i++;
+    }
+
+    // step 5
+    insert_remaining_elements(low_pair_number, main_chain, p, n);
+    if ((len % 2) != 0){
+        int nb = vec[len-1];
+        std::deque<int>::iterator index = binarySearch(main_chain, 0, len - 1, nb);
+        main_chain.insert(index, nb);
+    }
+    return main_chain; 
+}
+
+void PmergeMe::merge(std::deque<std::pair<int, int> > &p, int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    std::deque<std::pair<int, int> > left_array(n1);
+    std::deque<std::pair<int, int> > right_array(n2);
+
+    for (int i = 0; i < n1; i++) {
+        left_array[i] = p[left + i];
+    }
+    for (int j = 0; j < n2; j++) {
+        right_array[j] = p[mid + 1 + j];
+    }
+
+    int i = 0;
+    int j = 0;
+    int k = left;
+
+    while (i < n1 && j < n2) {
+        if (left_array[i].first <= right_array[j].first) { 
+            p[k] = left_array[i];
+            i++;
+        } else {
+            p[k] = right_array[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < n1) {
+        p[k] = left_array[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2) {
+        p[k] = right_array[j];
+        j++;
+        k++;
+    }
+}
+
+void PmergeMe::merge_sort(std::deque<std::pair<int, int> > &p, int left, int right)
+{
+    if (left >= right){
+        return;
+    }
+
+    int mid = left + (right - left) / 2;
+    merge_sort(p, left, mid);
+    merge_sort(p, mid+1, right);
+    merge(p, left, mid, right);
+}
+
+void PmergeMe::binary_insert(const std::deque<std::deque<int> >& groups, std::deque<int>& main_chain, std::deque<std::pair<int, int> >& p, size_t n)
+{
+   for (std::deque<std::deque<int> >::const_reverse_iterator it = groups.rbegin(); it != groups.rend(); ++it)
+    {
+        for (std::deque<int>::const_reverse_iterator jt = it->rbegin(); jt != it->rend(); ++jt)
+        {
+            int element = *jt;
+            int right = find_index_in_pair(p, main_chain, element, n);
+            std::deque<int>::iterator index = binarySearch(main_chain, 0, right, element);
+            main_chain.insert(index, element);
+        }
+    }
+}
+
+int PmergeMe::find_index_in_pair(std::deque<std::pair<int, int> > &p, std::deque<int> &main_chain,int const low_pair, int const n)
 {
     int i = 1;
     int first = 0;
@@ -217,23 +385,84 @@ int PmergeMe::find_index_in_pair(std::vector<std::pair<int, int> > &p, std::vect
     return i;
 }
 
-long PmergeMe::jacobsthal(int nb)
+std::deque<int>::iterator PmergeMe::binarySearch(std::deque<int> &main_chain, int low, int high, int x)
 {
-    if (nb == 0){
-        return 0;
-    }
-    if (nb == 1){
-        return 1;
-    }
+    std::deque<int>::iterator high_it = main_chain.begin() + high;
+    std::deque<int>::iterator low_it = main_chain.begin() + low;
+    std::deque<int>::iterator mid_it;
 
-    return (jacobsthal(nb-1) + (2 * jacobsthal(nb - 2)));
+    while (low_it <= high_it) {
+        mid_it = low_it + std::distance(low_it, high_it) / 2;
+
+        if (*mid_it > x) {
+
+            if (mid_it == main_chain.begin() || *(mid_it - 1) <= x) {
+                return mid_it;
+            }
+            high_it = mid_it - 1;
+        }
+        else {
+            low_it = mid_it + 1;
+        }
+    }
+    if (x <= *(main_chain.begin()))
+        return main_chain.begin();
+    else{
+        return main_chain.end();
+    }
 }
 
+void PmergeMe::create_and_sort_pair(std::deque<int> const &vec, std::deque<std::pair<int, int> > &p)
+{
+    size_t n = vec.size() / 2;
+    size_t i = 0;
+    size_t j = 0;
 
-// ################################################################################
-// #                                   DEQUE                                      #
-// ################################################################################
+    while (n != 0){
+        p.push_back(std::make_pair(vec.at(i), vec.at(i+1)));
+        if (p[j].first < p[j].second){
+            int tmp = p[j].first;
+            p[j].first = p[j].second;
+            p[j].second = tmp;
+        }
+        i +=2;
+        j ++;
+        n--;
+    }
+}
 
+void PmergeMe::insert_remaining_elements(std::deque<int>& low_pair_number, std::deque<int>& main_chain, std::deque<std::pair<int, int> >& p, size_t n)
+{
+    std::deque<std::deque<int> > groups;
+    const size_t grou_tab[] = { 2, 2, 6, 10, 22, 42, 86, 170, 342, 682, 1366 };
+
+    size_t i = 0;
+
+    for (size_t group_idx = 0; group_idx < 11; ++group_idx)
+    {
+        size_t group_size = grou_tab[group_idx];
+
+        if (i + group_size > low_pair_number.size()) {
+            group_size = low_pair_number.size() - i;
+        }
+
+        groups.push_back(std::deque<int>(low_pair_number.begin() + i, low_pair_number.begin() + i + group_size));
+
+        i += group_size;
+
+        if (i >= low_pair_number.size()) {
+            break;
+        }
+    }
+    // // functions print groups
+    // std::cout << "main = ";
+    // print_array(main_chain);
+    // std::cout << "low = ";
+    // print_array(low_pair_number);
+    // print_groups(groups);
+
+    binary_insert(groups, main_chain, p, n);
+}
 
 
 // ################################################################################
@@ -311,3 +540,5 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& rhs)
     }
     return *this;
 }
+
+
