@@ -1,8 +1,14 @@
 #include "PmergeMe.hpp"
+
+#include <ctime>
 // ################################################################################
 // #                                  PMERGE                                      #
 // ################################################################################
 
+
+// ################################################################################
+// #                                  VECTOR                                      #
+// ################################################################################
 void PmergeMe::init_pmerge(char** av) 
 {
     try {
@@ -16,12 +22,22 @@ void PmergeMe::init_pmerge(char** av)
                 _deq.push_back(nb);
             }
         }
-        FordJ(_vec);
-        // std::cout << "Sorted data: ";
-        // for (typename T::iterator it = sorted_container.begin(); it != sorted_container.end(); ++it) {
-        //     std::cout << *it << " ";
-        // }
-        // std::cout << std::endl; 
+
+        size_t n = _vec.size();
+        std::cout << "before: ";
+        print_array(_vec);
+
+        clock_t time_vec = clock();
+        if (n > 1){
+            _vec = FordJ(_vec);
+        }
+        time_vec = clock() - time_vec;
+
+        std::cout << "after: ";
+        print_array(_vec);
+
+        std::cout << "Time to process a range of " << n << " elements with std::vector : " << (float)time_vec * 1000 / CLOCKS_PER_SEC << " ms" << std::endl;
+		//std::cout << "Time to process a range of " << ac - 1 << " elements with std::deque : " << (float)timeDeq * 1000 / CLOCKS_PER_SEC << " ms" << std::endl;
     }
     catch (std::invalid_argument& e) {
         std::cerr << e.what() << std::endl;
@@ -85,52 +101,83 @@ void PmergeMe::merge_sort(std::vector<std::pair<int, int> > &p, int left, int ri
 std::vector<int> PmergeMe::FordJ(std::vector<int> vec)
 {
     std::vector<std::pair<int, int> > p;
-    
+    size_t len  = vec.size();
+    size_t n = len / 2;
+    size_t i = 0;
+
     create_and_sort_pair(vec, p);
 
-    size_t i = 0;
-    while (i < (vec.size() /2)){
-        std::cout << "(" << p[i].first << ", " << p[i].second << ")" << std::endl;
-        i++;
-    }
-    
-
     // use merge sort to sort pair with p.first
+    merge_sort(p, 0, (n - 1));
 
-    merge_sort(p, 0, (vec.size() /2 - 1));
-
-    i = 0;
-    std::cout << std::endl;
-    while (i < (vec.size() /2)){
-        std::cout << "(" << p[i].first << ", " << p[i].second << ")" << std::endl;
-        i++;
-    }
-
-    std::vector<int> main_chain;
-
-    i = 0;
     // add the number who is paired with the first one
+    std::vector<int> main_chain;
+    i = 0;
     main_chain.push_back(p[0].second);
-    while (i < (vec.size() /2)){
+    while (i < n){
         main_chain.push_back(p[i].first);
         i++;
     }
 
-    for (size_t i = 0; i < main_chain.size(); i++){
-        std::cout << " " << main_chain[i];
-    }
-    std::cout <<  std::endl;
-
     std::vector<int> low_pair_number;
-
     i = 1;
-    while (i < (vec.size() /2)){
+    while (i < n){
         low_pair_number.push_back(p[i].second);
         i++;
     }
 
-    return vec;
+    if ((len % 2) != 0){
+        int nb = vec[len-1];
+        std::vector<int>::iterator index = binarySearch(main_chain, 0, len - 1, nb);
+        main_chain.insert(index, nb);
+    }
+    binary_insert(low_pair_number, main_chain, p, n);
+
+    return main_chain; 
+}
+
+void PmergeMe::binary_insert(std::vector<int> &low_pair_number, std::vector<int> &main_chain, std::vector<std::pair<int, int> > &p, size_t n)
+{
+
+    for (size_t i = 0; i < low_pair_number.size(); i++){
+        int right = find_index_in_pair(p, main_chain ,low_pair_number[i], n);
+
+        std::vector<int>::iterator index = binarySearch(main_chain, 0, right, low_pair_number[i]);
+        main_chain.insert(index, low_pair_number[i]);
+    }
+
+}
+
+std::vector<int>::iterator PmergeMe::binarySearch(std::vector<int> &main_chain, int low, int high, int x)
+{
+    std::vector<int>::iterator high_it = main_chain.begin() + high;
+    std::vector<int>::iterator low_it = main_chain.begin() + low;
+    std::vector<int>::iterator mid_it;
+
+    while (low_it <= high_it) {
+        mid_it = low_it + std::distance(low_it, high_it) / 2;
+
+        // Si l'élément trouvé est plus grand que x
+        if (*mid_it > x) {
+            // Vérifiez si le précédent est plus petit ou égal à x
+            if (mid_it == main_chain.begin() || *(mid_it - 1) <= x) {
+                return mid_it;
+            }
+            // Sinon, continuez la recherche à gauche
+            high_it = mid_it - 1;
+        }
+        // Si l'élément trouvé est inférieur ou égal à x, continuez à droite
+        else {
+            low_it = mid_it + 1;
+        }
+    }
     
+    // Si aucun élément ne remplit la condition, retournez low_it qui sera l'emplacement d'insertion
+    if (x <= *(main_chain.begin()))
+        return main_chain.begin();
+    else{
+        return main_chain.end();
+    }
 }
 
 void PmergeMe::create_and_sort_pair(std::vector<int> const &vec, std::vector<std::pair<int, int> > &p)
@@ -152,6 +199,42 @@ void PmergeMe::create_and_sort_pair(std::vector<int> const &vec, std::vector<std
     } 
 
 }
+
+int PmergeMe::find_index_in_pair(std::vector<std::pair<int, int> > &p, std::vector<int> &main_chain,int const low_pair, int const n)
+{
+    int i = 1;
+    int first = 0;
+    while (i < n){
+        if (low_pair == p[i].second){
+            first = p[i].first;
+        }
+        i++;
+    }
+    i = 0;
+    while (main_chain[i] != first){
+        i++;
+    }
+    return i;
+}
+
+long PmergeMe::jacobsthal(int nb)
+{
+    if (nb == 0){
+        return 0;
+    }
+    if (nb == 1){
+        return 1;
+    }
+
+    return (jacobsthal(nb-1) + (2 * jacobsthal(nb - 2)));
+}
+
+
+// ################################################################################
+// #                                   DEQUE                                      #
+// ################################################################################
+
+
 
 // ################################################################################
 // #                                  PARSING                                     #

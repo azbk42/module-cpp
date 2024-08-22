@@ -11,8 +11,5 @@ int main(int ac, char** av)
 
     PmergeMe pmerge(av);
 
-    // std::deque<int> dek;
-    // PmergeMe t(dek, av);
-
     return 0;
 }
