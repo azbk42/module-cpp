@@ -104,4 +104,7 @@ void reverse_polish(std::string str)
     if (polish.size() == 1){
         std::cout << "final result = " << polish.top() << std::endl;
     }
+    else{
+        std::cout << "You need more operator in your RPN" << std::endl;
+    }
 }
